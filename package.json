@@ -1,0 +1,30 @@
+{
+  "name": "mk48-desktop",
+  "version": "1.0.0",
+  "description": "A desktop client for mk48.io",
+  "main": "app/index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --platform=node --external:electron --tsconfig=tsconfig.json --outfile=app/index.js",
+    "start": "electron .",
+				"dev": "nodemon -e ts --watch src scripts/start_dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thatretrodev/mk48-desktop.git"
+  },
+  "author": "thatretrodev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thatretrodev/mk48-desktop/issues"
+  },
+  "homepage": "https://github.com/thatretrodev/mk48-desktop#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "esbuild": "^0.14.11"
+  },
+  "dependencies": {
+    "discord-rpc": "^4.0.1",
+    "electron": "^16.0.7"
+  }
+}
