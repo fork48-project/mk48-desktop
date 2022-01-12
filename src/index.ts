@@ -3,6 +3,16 @@ const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const DiscordRPC = require('discord-rpc');
 
+function getSettings(name: string) : boolean {
+	if (typeof process.env["MK48_" + name.toUpperCase()] !== "undefined") {
+		console.log(`${"MK48_" + name.toUpperCase()} does exist ${process.env["MK48_" + name.toUpperCase()] == "enabled" ? "and is enabled": "but is not enabled"}`);
+
+		return process.env["MK48_" + name.toUpperCase()] == "enabled";
+	}
+	console.log(`${"MK48_" + name.toUpperCase()} does not exist.`);
+	return false;
+}
+
 var mainWindow;
 
 function createWindow() {
@@ -22,7 +32,9 @@ function createWindow() {
 	//mainWindow.loadFile('index.html');
 
 	// Open the DevTools.
-	// mainWindow.webContents.openDevTools()
+	if (getSettings("debugmenu")) {
+		mainWindow.webContents.openDevTools();
+	}
 }
 
 // This method will be called when Electron has finished
