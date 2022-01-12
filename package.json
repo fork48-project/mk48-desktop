@@ -6,7 +6,8 @@
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --platform=node --external:electron --tsconfig=tsconfig.json --outfile=app/index.js",
     "start": "electron .",
-				"dev": "nodemon -e ts --watch src scripts/start_dev.js",
+    "dev": "nodemon -e ts --watch src scripts/start_dev.js",
+    "dist": "node scripts/dist.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,10 +22,11 @@
   "homepage": "https://github.com/thatretrodev/mk48-desktop#readme",
   "devDependencies": {
     "@types/node": "^17.0.8",
+    "electron": "^16.0.7",
+    "electron-packager": "^15.4.0",
     "esbuild": "^0.14.11"
   },
   "dependencies": {
-    "discord-rpc": "^4.0.1",
-    "electron": "^16.0.7"
+    "discord-rpc": "^4.0.1"
   }
 }
