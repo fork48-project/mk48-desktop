@@ -23,9 +23,9 @@ function dist_linux() {
 function dist_win32() {
 	dist("win32", "ia32");
 	dist("win32", "x64");
-	dist("win32", "arm64");
 }
 
+execSync("npm run build");
 dist_linux();
 dist_win32();
 dist_darwin();
