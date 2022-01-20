@@ -4,8 +4,7 @@ function dist(platform, arch) {
 	console.log(`Packaging app with platform: ${platform} and arch: ${arch}`);
 
 	try {
-		const zipCommand = platform == "linux" ? `tar -czf dist/mk48-${platform}-${arch}.tar.gz dist/mk48-${platform}-${arch}/` : `zip -r dist/mk48-${platform}-${arch}.zip dist/mk48-${platform}-${arch}/`;
-		execSync(`npx electron-packager . mk48 --asar --out=dist --platform=${platform} --arch=${arch} --ignore=\"(src*|tsconfig.json|.gitignore|scripts*|dist*)\";${zipCommand};rm -rf dist/mk48-${platform}-${arch}/`);
+		execSync(`npx electron-packager . mk48 --asar --out=dist --platform=${platform} --arch=${arch} --ignore=\"(src*|tsconfig.json|.gitignore|scripts*|dist*)\"`);
 	} catch (e) {}
 }
 
