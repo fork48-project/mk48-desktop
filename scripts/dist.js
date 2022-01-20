@@ -15,8 +15,8 @@ function dist_darwin() {
 
 function dist_linux() {
 	dist("linux", "x64");
-	dist("linux", "armv7l");
-	dist("linux", "arm64");
+	/*dist("linux", "armv7l");
+	dist("linux", "arm64");*/
 }
 
 function dist_win32() {
@@ -27,4 +27,4 @@ function dist_win32() {
 execSync("npm run build");
 dist_linux();
 dist_win32();
-dist_darwin();
+//dist_darwin();
