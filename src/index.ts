@@ -31,9 +31,9 @@ function createWindow() {
 		if (!await isReachable("https://mk48.io")) {
 			dialog.showMessageBoxSync(mainWindow, {
 				message: "Unable to connect to mk48.io. Is your network connection working?",
-				type: "error",
+				type: "error"
 			});
-			
+
 			mainWindow.close();
 		}
 
