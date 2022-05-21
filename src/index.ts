@@ -1,7 +1,8 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron');
+const { dialog, app, BrowserWindow } = require('electron');
 const path = require('path');
 const DiscordRPC = require('discord-rpc');
+const isReachable = require('is-reachable');
 
 function getSettings(name: string) : string {
 	if (typeof process.env["MK48_" + name.toUpperCase()] !== "undefined") {
@@ -26,7 +27,19 @@ function createWindow() {
 	});
 
 	// and load the index.html of the app.
-	mainWindow.loadURL("https://mk48.io");
+	(async () => {
+		if (!await isReachable("https://mk48.io")) {
+			dialog.showMessageBoxSync(mainWindow, {
+				message: "Unable to connect to mk48.io. Is your network connection working?",
+				type: "error",
+			});
+			
+			mainWindow.close();
+		}
+
+		mainWindow.loadURL("https://mk48.io");
+	})();
+
 	mainWindow.setMenu(null);
 	
 	//mainWindow.loadFile('index.html');
