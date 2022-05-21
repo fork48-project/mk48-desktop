@@ -86,7 +86,7 @@ async function setActivity() {
 
 	await mainWindow.webContents.executeJavaScript(`console.log("${coords}");`);
 
-	let status = `Playing mk48.io ${serverID ? `with Server ${serverID}` : ""}`;
+	let status = `Playing mk48.io ${serverID ? `on Server ${serverID}` : ""}`;
 
 	// Main Menu
 
