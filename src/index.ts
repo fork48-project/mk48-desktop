@@ -75,11 +75,36 @@ async function setActivity() {
 		return;
 	}
 
-	const playername = await mainWindow.webContents.executeJavaScript("window.localStorage.name") ?? "Unknown/Invalid Name!";
+	const playername = await mainWindow.webContents.executeJavaScript("window.localStorage.name;") ?? "Unknown/Invalid Name!";
+	const serverID = await mainWindow.webContents.executeJavaScript("Number(localStorage.serverId);") ?? null;
 	
+	let coords = "N/A";
+
+	try {
+		coords = await mainWindow.webContents.executeJavaScript(`try{document.getElementById("ship_status").firstChild.innerText.split("—")[3].split("\\n")[0].replace("(", "").replace(")", "").trim();}catch(e){}`) || "N/A";
+	} catch (e) {}
+
+	await mainWindow.webContents.executeJavaScript(`console.log("${coords}");`);
+
+	let status = `Playing mk48.io ${serverID ? `with Server ${serverID}` : ""}`;
+
+	// Main Menu
+
+	if (await mainWindow.webContents.executeJavaScript(`try{document.getElementById("play_button") ? true : false;}catch(e){}`)) {
+		status = "Main Menu";
+	}
+
+	// Dead
+
+	const deathMessage = await mainWindow.webContents.executeJavaScript(`try{document.getElementsByClassName("reason")[0].innerText;}catch(e){}`);
+	
+	if (deathMessage) {
+		status = deathMessage;
+	}
+
 	rpc.setActivity({
-		details: "Playing Mk48.io",
-		state: `Name: "${playername}"`,
+		details: status,
+		state: getSettings("discoords") == "enabled" ? `in-game location: ${coords}` : `name: "${playername}"`,
 		startTimestamp,
 		instance: false,
 		largeImageKey: "mk48io3"
@@ -95,5 +120,3 @@ rpc.on("ready", () => {
 });
 
 rpc.login({ clientId }).catch(console.error);
-
-//console.log("Hello, World!");
