@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const { dialog, app, BrowserWindow } = require('electron');
+const fs = require('fs');
 const path = require('path');
 const DiscordRPC = require('discord-rpc');
 const isReachable = require('is-reachable');
@@ -14,7 +15,7 @@ function getSettings(name: string) : string {
 	return "disabled";
 }
 
-var mainWindow;
+let mainWindow;
 
 function createWindow() {
 	// Create the browser window.
@@ -38,6 +39,14 @@ function createWindow() {
 		}
 
 		mainWindow.loadURL("https://mk48.io");
+
+		setTimeout(async () => {
+			const args = process.argv[0] == "electron" || process.argv[0].endsWith("electron") ? process.argv.slice(2) : process.argv.slice(1);
+		
+			for (let i = 0; i < args.length; i++) {
+				await mainWindow.webContents.executeJavaScript(fs.readFileSync(args[i], "utf8"));
+			}
+		}, 1000);
 	})();
 
 	mainWindow.setMenu(null);
