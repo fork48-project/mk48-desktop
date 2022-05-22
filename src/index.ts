@@ -101,12 +101,6 @@ async function setActivity() {
 
 	let status = `Playing mk48.io ${serverID ? `on Server ${serverID}` : ""}`;
 
-	// Main Menu
-
-	if (await mainWindow.webContents.executeJavaScript(`try{document.getElementById("play_button") ? true : false;}catch(e){}`)) {
-		status = "Main Menu";
-	}
-
 	// Dead
 
 	const deathMessage = await mainWindow.webContents.executeJavaScript(`try{document.getElementsByClassName("reason")[0].innerText;}catch(e){}`);
