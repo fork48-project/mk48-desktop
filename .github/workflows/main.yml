@@ -28,7 +28,7 @@ jobs:
           node-version: '16'
           
       - name: Install WINE
-        run: sudo apt install wine64
+        run: sudo apt update && sudo apt install wine64
       
       - name: Install Dependencies
         run: npm install
