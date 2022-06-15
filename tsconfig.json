@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
-		"types": ["node"]
+		"types": ["node"],
+		"noEmit": true
 	},
 	"files": [
 		"src/index.ts"
